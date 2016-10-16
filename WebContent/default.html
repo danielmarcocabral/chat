@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Chatter</title>
+	<script type="text/javascript">
+		var webSocket=  new WebSocket("ws://localhost:8080/chat/chatServerEndpoint");
+		webSocket.onopen = function () { alert("WebSocket connection opened") };
+		webSocket.onmessage = function processMessage(message){
+			
+			var jsonData = JSON.parse(message.data);
+			
+			if(jsonData.message!=null){
+				chatBox.value += jsonData.message + "\n";
+			}else{
+				alert("message is null");
+			}
+			
+			return false;
+		}
+		webSocket.onclose = function () { alert("WebSocket connection closed") };
+		function sendMessage(){
+			webSocket.send(inputBox.value);
+			inputBox.value="";
+		}
+	</script>
+</head>
+<body>
+		<textarea id="chatBox" rows="10" cols="45"></textarea>
+		<input type="text" id="inputBox" size="50"/><input type="button" value="Send" onclick="sendMessage();"/>
+
+</body>
+</html>
