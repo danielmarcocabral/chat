@@ -6,51 +6,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 	<title>Chatter</title>
-	<!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    
-	<script type="text/javascript">
-		var webSocket=  new WebSocket("ws://localhost:8080/chat/chatServerEndpoint");
-		webSocket.onopen = function () { alert("WebSocket connection opened") };
-		webSocket.onmessage = function processMessage(message){
-			
-			var jsonData = JSON.parse(message.data);
-			
-			if(jsonData.message!=null){
-				chatBox.value += jsonData.message + "\n";
-			}else{
-				alert("message is null");
-			}
-			
-			return false;
-		}
-		webSocket.onclose = function () { alert("WebSocket connection closed") };
-		function sendMessage(){
-			webSocket.send(inputBox.value);
-			inputBox.value="";
-		}
-		function inputBoxKeyPress(event){
-			 if (event.keyCode == 13) {
-			     sendMessage();
-			 }	
-		}
-		
-	
-	</script>
+
 </head>
 <body  onkeypress="return inputBoxKeyPress(event);">
 	<div class="container-fluid">
 		<div class="row">
+		<div class="col-lg-12">
 			<div class="form-group">
 				<label for="chatBox">Chat:</label>
 				<textarea  class="form-control" id="chatBox" rows="10"></textarea>
 			</div>
-
+			</div>
 		</div>
 		<div class="row">
 			<div class="col-lg-12">
 			 	<div class="input-group input-group-lg">
-					<input type="text" id="inputBox" class="form-control input-lg" placeholder="Your message" />
+					<input type="text" id="inputBox" class="form-control input-lg" placeholder="Login as" />
 					<span class="input-group-btn">
         				<button class="btn btn-default btn-lg" type="submit" onclick="sendMessage();" >Send</button>
       				</span>
@@ -59,11 +30,15 @@
 		</div>
 	</div>
 	
-	
-	
-	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="js/jquery-3.1.1.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
+    <!--Custom Javascript for chat application -->
+    <script src="js/chat.js"></script>
+	
+
 </body>
 </html>
