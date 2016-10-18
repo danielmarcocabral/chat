@@ -17,6 +17,7 @@ import com.chat.util.DataUtil;
 import javax.websocket.OnClose;
 import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
+import javax.websocket.OnError;
 import javax.websocket.Session;
 
 
@@ -43,6 +44,10 @@ public class ChatServerEndpoint {
 	@OnClose
 	public void close(Session userSession){
 		UserSessionHandler.removeSession(userSession);
+	}
+	@OnError
+	public void handleError(Session session){
+		
 	}
 	
 
