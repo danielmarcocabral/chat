@@ -20,7 +20,7 @@ function changeTitle() {
 	
 }
 var webSocket=  new WebSocket("ws://192.168.1.9:8999/chat/chatServerEndpoint");
-webSocket.onopen = function () { alert("WebSocket connection opened") };
+webSocket.onopen = function () {};
 webSocket.onmessage = function processMessage(message){
 	
 	var jsonData = JSON.parse(message.data);
@@ -35,7 +35,7 @@ webSocket.onmessage = function processMessage(message){
 	
 	return false;
 }
-webSocket.onclose = function () { alert("WebSocket connection closed") };
+webSocket.onclose = function () { };
 function sendMessage(){
 	if(inputBox.value.trim()!=""){
 		webSocket.send(inputBox.value);
