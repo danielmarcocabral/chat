@@ -1,4 +1,24 @@
-
+var title = document.title;
+var updateCount = 0;
+var isActive;
+window.onfocus = function () { 
+	isActive = true; 
+	changeTitle();
+}; 
+window.onblur = function () { 
+  isActive = false; 
+}; 
+function changeTitle() {
+	if(isActive){
+		updateCount = 0;
+		document.title=title;
+	}else{
+		updateCount++;
+	    var newTitle = '(' + updateCount + ') ' + title;
+	    document.title = newTitle;
+	}
+	
+}
 var webSocket=  new WebSocket("ws://192.168.1.9:8999/chat/chatServerEndpoint");
 webSocket.onopen = function () { alert("WebSocket connection opened") };
 webSocket.onmessage = function processMessage(message){
@@ -8,6 +28,7 @@ webSocket.onmessage = function processMessage(message){
 	if(jsonData.message!=null){
 		chatBox.value += jsonData.message + "\n";
 		chatBox.scrollTop = chatBox.scrollHeight;
+		changeTitle();
 	}else{
 		alert("message is null");
 	}
